@@ -1,10 +1,10 @@
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
-
+ 
 @font-face {
-  font-family: Poppins-Regular;
-  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
+	font-family: Poppins-Regular;
+	src: url('../fonts/poppins/Poppins-Regular.ttf');
 }
 
 @font-face {
@@ -470,4 +470,5 @@ iframe {
     padding-left: 15px;
     padding-right: 15px;
   }
-} 
+}
+

@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Hom\login.cshtml" />
-    <Content Remove="Views\Hom\RQS.cshtml" />
+    <Content Remove="Views\Home\login.cshtml" />
+    <Content Remove="Views\Home\stdn.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Hom\login.cshtml" />
-    <None Include="Views\Hom\RQS.cshtml" />
+    <None Include="Views\Home\login.cshtml" />
+    <None Include="Views\Home\stdn.cshtml" />
     <None Include="wwwroot\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
     <None Include="wwwroot\fonts\font-awesome-4.7.0\less\animated.less" />

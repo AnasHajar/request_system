@@ -28,6 +28,19 @@ namespace reequest_system.Controllers
             return View();
         }
 
+        public IActionResult stdn()
+        {
+            return View();
+        }
+        public IActionResult inr()
+        {
+            return View();
+        }
+        public IActionResult login()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

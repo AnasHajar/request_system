@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using reequest_system.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,9 +13,10 @@ namespace reequest_system.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        new_systemContext db;
+        public HomeController(ILogger<HomeController> logger , new_systemContext context)
         {
+            db = context;
             _logger = logger;
         }
 
@@ -28,9 +30,10 @@ namespace reequest_system.Controllers
             return View();
         }
 
-        public IActionResult stdn()
-        {
-            return View();
+        public IActionResult stdn(string id)
+        { 
+            Student s = db.Students.Find(id);
+            return View(s);
         }
         public IActionResult inr()
         {
@@ -42,6 +45,7 @@ namespace reequest_system.Controllers
         }
         public IActionResult test()
         {
+
             return View();
         }
 

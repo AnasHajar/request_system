@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using reequest_system.Models;
 
 namespace reequest_system
 {
@@ -31,8 +32,19 @@ namespace reequest_system
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+            // Add framework services.
+            services.AddMvc();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            var connection = @"Server=.;Database=new_system;Trusted_Connection=True;";
+            services.AddDbContext<new_systemContext>(options => options.UseSqlServer(connection));
+        
+
+
+
+
+
+
+        services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
         }

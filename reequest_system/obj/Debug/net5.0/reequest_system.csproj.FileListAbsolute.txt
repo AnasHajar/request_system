@@ -878,3 +878,4 @@ C:\Program Files\Git\request_system\reequest_system\obj\Debug\net5.0\Razor\Views
 C:\Program Files\Git\request_system\reequest_system\obj\Debug\net5.0\Razor\Views\Home\test.cshtml.g.cs
 C:\Program Files\Git\request_system\reequest_system\obj\Debug\net5.0\Razor\Views\Shared\_nav.cshtml.g.cs
 C:\Program Files\Git\request_system\reequest_system\obj\Debug\net5.0\reequest_system.csproj.AssemblyReference.cache
+C:\Program Files\Git\request_system\reequest_system\obj\Debug\net5.0\Razor\Views\Home\Faculty.cshtml.g.cs

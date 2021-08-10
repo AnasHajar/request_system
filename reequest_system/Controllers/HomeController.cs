@@ -31,11 +31,20 @@ namespace reequest_system.Controllers
         }
 
         public IActionResult stdn(string id)
-        { 
+        {
+            //Collage c = db.Collages.Find(id);
+
+            //c.ClgId = 1;
+            //var r = db.Students.Where(x => x.ClgId == c.ClgId);
             Student s = db.Students.Find(id);
+
             return View(s);
         }
         public IActionResult inr()
+        {
+            return View();
+        }
+        public IActionResult Faculty()
         {
             return View();
         }

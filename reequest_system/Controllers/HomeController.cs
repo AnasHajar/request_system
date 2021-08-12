@@ -26,29 +26,20 @@ namespace reequest_system.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+       
 
-        public IActionResult stdn(string id)
+        public IActionResult stdn(string id="ssn1")
         {
-            //Collage c = db.Collages.Find(id);
 
-            //c.ClgId = 1;
-            //var r = db.Students.Where(x => x.ClgId == c.ClgId);
             dynamic expObject = new ExpandoObject();
             Student studentInfo = db.Students.Find(id);
             expObject.studentInfo = studentInfo;
             expObject.collegeInfo = db.Collages.Where(c=>c.ClgId==studentInfo.ClgId).SingleOrDefault();
             expObject.majoreInfo = db.CollageMajors.Where(c => c.MjrId == studentInfo.MjrId).SingleOrDefault();
-
+                        
             return View(expObject);
         }
-        public IActionResult inr()
-        {
-            return View();
-        }
+        
         public IActionResult Faculty()
         {
             return View();

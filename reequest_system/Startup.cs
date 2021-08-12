@@ -37,15 +37,15 @@ namespace reequest_system
 
             var connection = @"Server=.;Database=new_system;Trusted_Connection=True;";
             services.AddDbContext<new_systemContext>(options => options.UseSqlServer(connection));
-        
 
 
 
 
 
 
-        services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
         }
 
@@ -73,9 +73,10 @@ namespace reequest_system
 
             app.UseEndpoints(endpoints =>
             {
+                //default is Index 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=login}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

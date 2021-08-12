@@ -5,6 +5,7 @@ using reequest_system.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,9 +37,13 @@ namespace reequest_system.Controllers
 
             //c.ClgId = 1;
             //var r = db.Students.Where(x => x.ClgId == c.ClgId);
-            Student s = db.Students.Find(id);
+            dynamic expObject = new ExpandoObject();
+            Student studentInfo = db.Students.Find(id);
+            expObject.studentInfo = studentInfo;
+            expObject.collegeInfo = db.Collages.Where(c=>c.ClgId==studentInfo.ClgId).SingleOrDefault();
+            expObject.majoreInfo = db.CollageMajors.Where(c => c.MjrId == studentInfo.MjrId).SingleOrDefault();
 
-            return View(s);
+            return View(expObject);
         }
         public IActionResult inr()
         {
@@ -50,6 +55,7 @@ namespace reequest_system.Controllers
         }
         public IActionResult login()
         {
+
             return View();
         }
         public IActionResult test()

@@ -1,3 +1,9 @@
+@using reequest_system.Models 
+@{ 
+    Student studInfo = Model.studentInfo;
+    Collage collegeInfo = Model.collegeInfo;
+    CollageMajor majoreInfo = Model.majoreInfo;
+} 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" id="bootstrap-css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
@@ -44,7 +50,6 @@
 
 <div class="container emp-profile">
     @*method="#*@
-    @model Student
     <form>
         <div class="row">
             <div class="col-md-4">
@@ -84,7 +89,7 @@
                     <p>Personal Information</p>
                     <a href="">email:anashajr@gmail.com</a><br />
                     <a href="">phone:0556839734 </a><br />
-                    <a href="">Nationality: @Model.NationalityId </a>
+                    <a href="">Nationality: @studInfo.NationalityId </a>
                     <p>Address</p>
                     <a href="">City: Jeddah</a><br />
                     <a href="">District:Alnaseem</a><br />
@@ -100,7 +105,7 @@
                                 <label>Student Id</label>
                             </div>
                             <div class="col-md-6">
-                                <p>@Model.Ssn</p>
+                                <p>@studInfo.Ssn</p>
                             </div>
                         </div>
                         <div class="row">
@@ -108,7 +113,7 @@
                                 <label>Name</label>
                             </div>
                             <div class="col-md-6">
-                                <p>@Model.StName</p>
+                                <p>@studInfo.StName</p>
                             </div>
                         </div>
                         <div class="row">
@@ -124,7 +129,7 @@
                                 <label>College</label>
                             </div>
                             <div class="col-md-6">
-                                <p>@Model.ClgId</p>
+                                <p>@collegeInfo.ClgName</p>
                             </div>
                         </div>
                         <div class="row">
@@ -132,7 +137,7 @@
                                 <label>major</label>
                             </div>
                             <div class="col-md-6">
-                                <p>@Model.MjrId</p>
+                                <p>@majoreInfo.MjrName</p>
                             </div>
 
 

@@ -28,6 +28,22 @@ namespace reequest_system
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //creating the cookie
+            services.AddAuthentication("CookieAuth").AddCookie("CookieAuth", config =>
+            {
+                config.Cookie.Name = "logincookie";
+                config.LoginPath = "/Home/login";
+                config.AccessDeniedPath = "/Home/login";
+                config.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                config.SlidingExpiration = true;
+
+
+            });
+
+
+
+
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -37,15 +53,15 @@ namespace reequest_system
 
             var connection = @"Server=.;Database=new_system;Trusted_Connection=True;";
             services.AddDbContext<new_systemContext>(options => options.UseSqlServer(connection));
-        
 
 
 
 
 
 
-        services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
         }
 
@@ -67,15 +83,16 @@ namespace reequest_system
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            // add auths 
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                //default is Index 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=login}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

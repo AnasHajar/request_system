@@ -274,9 +274,13 @@ h6 {
   border-radius: 5px 0 0 5px
 }
 
-.bg-c-lite-green {
+/*.bg-c-lite-green {
   background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
   background: linear-gradient(to right, #ee5a6f, #f29263)
+}*/
+.bg-c-lite-green {
+    background: -webkit-gradient(linear, left top, right top, from(#0867e4), to(#ADD8E6));
+    background: linear-gradient(to right, #0616f5, #439ee9f1)
 }
 
 .user-profile {

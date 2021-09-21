@@ -32,8 +32,8 @@ namespace reequest_system
             services.AddAuthentication("CookieAuth").AddCookie("CookieAuth", config =>
             {
                 config.Cookie.Name = "logincookie";
-                config.LoginPath = "/Home/login";
-                config.AccessDeniedPath = "/Home/login";
+                config.LoginPath = "/Auth/login";
+                config.AccessDeniedPath = "/Auth/login";
                 config.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                 config.SlidingExpiration = true;
 
@@ -60,8 +60,8 @@ namespace reequest_system
 
 
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //        .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
         }
 
@@ -92,7 +92,7 @@ namespace reequest_system
                 //default is Index 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=login}/{id?}");
+                    pattern: "{controller=Auth}/{action=login}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

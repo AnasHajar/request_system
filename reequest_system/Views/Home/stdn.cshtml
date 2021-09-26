@@ -1,10 +1,15 @@
-@using reequest_system.Models 
-@{ 
+@using reequest_system.Models
+@using reequest_system.ViewModels
+@{
     Student studInfo = Model.studentInfo;
     Collage collegeInfo = Model.collegeInfo;
     CollageMajor majoreInfo = Model.majoreInfo;
     List<RequestList> requestList = Model.requestList;
-} 
+    List<Course> courseList = Model.courseList;
+
+    List<vmExceptions> exceptionList = Model.exceptionList;
+
+}
 <title>Student @studInfo.StName</title>
 <style>
     img {
@@ -18,7 +23,7 @@
 
 <div class="container emp-profile">
 
-    <form>
+    <div>
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
@@ -29,7 +34,6 @@
             <div class="col-md-6">
                 <div class="profile-head">
                     <h5>
-                      
                     </h5>
                     <h6>
                         CE-Software engineering
@@ -164,88 +168,91 @@
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 
     <div class="container-contact100">
         <div class="wrap-contact100">
-            <form class="contact100-form validate-form">
+            <form id="frmException" class="contact100-form validate-form">
                 <span class="contact100-form-title">
                     <img src="~/images/signup-image.jpg" alt="sing up image">
                 </span>
 
                 @*<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
-                    <span class="label-input100">FULL NAME *</span>
-                    <input class="input100" type="text" name="name" placeholder="Enter Your Name">
-                </div>
+                        <span class="label-input100">FULL NAME *</span>
+                        <input class="input100" type="text" name="name" placeholder="Enter Your Name">
+                    </div>
 
-                <div class="wrap-input100 bg1 rs1-wrap-input100">
-                    <span class="label-input100">SSN ID</span>
-                    <input class="input100" type="text" name="ID" placeholder="Enter SSN ID">
-                </div>
+                    <div class="wrap-input100 bg1 rs1-wrap-input100">
+                        <span class="label-input100">SSN ID</span>
+                        <input class="input100" type="text" name="ID" placeholder="Enter SSN ID">
+                    </div>
 
-                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Enter Your Email (e@a.x)">
-                    <span class="label-input100">Email *</span>
-                    <input class="input100" type="text" name="email" placeholder="Enter Your Student's email ">
-                </div>*@
+                    <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Enter Your Email (e@a.x)">
+                        <span class="label-input100">Email *</span>
+                        <input class="input100" type="text" name="email" placeholder="Enter Your Student's email ">
+                    </div>*@
 
                 <div class="wrap-input100 input100-select bg1">
                     <span class="label-input100">Type of Request *</span>
                     <div>
-                        <select class="js-select2" name="service">
+                        <select class="js-select2" name="requestId" id="requestId" required>
                             <option>Please chooses your Type of Request</option>
                             @foreach (var item in requestList)
                             {
                                 <option value="@item.RqstId">@item.RqstName</option>
-                            }                        
+                            }
                         </select>
                         <div class="dropDownSelect2"></div>
                     </div>
                 </div>
 
-                <div class="w-full dis-none js-show-service">
-                    <div class="wrap-contact100-form-radio">
-                        <span class="label-input100">Choose the available courses</span>
+                <div class="clearfix"></div>
+                <div class="w-full js-show-service dis-none" id="divCourses">
+                    <span class="label-input100">Choose the available courses</span>
+                    <div>
 
-                        <div class="contact100-form-radio m-t-15">
-                            <input class="input-radio100" id="radio1" type="radio" name="type-product" value="physical" checked="checked">
-                            <label class="label-radio100" for="radio1">
-                                SE 310 	Multimedia & Web Design
-                            </label>
-                        </div>
+                        <select class="" name="courseId" id="courseId" required>
+                            <option>Please chooses your desired course</option>
+                            @*loop throu the courselist *@
+                            @foreach (var item in courseList)
+                            {
+                                <option value="@(string.Concat(item.CrsDpt,"-",item.CrsNum))">@item.CrsTitle</option>
+                            }
+                        </select>
 
-                        <div class="contact100-form-radio">
-                            <input class="input-radio100" id="radio2" type="radio" name="type-product" value="digital">
-                            <label class="label-radio100" for="radio2">
-                                SE 421 	Internet Application
-                            </label>
-                        </div>
 
-                        <div class="contact100-form-radio">
-                            <input class="input-radio100" id="radio3" type="radio" name="type-product" value="service">
-                            <label class="label-radio100" for="radio3">
-                                SE 206 	Introduction To Software Engineering
-                            </label>
-                        </div>
+                        @*<div class="contact100-form-radio m-t-15">
+                                <input class="input-radio100" id="radio1" type="radio" name="type-product" value="course" checked="checked">
+                                <label class="label-radio100" for="radio1">
+                                    @item.CrsTitle
+                                </label>
+                            </div>*@
                     </div>
 
-                    <div class="wrap-contact100-form-range">
-                        <span class="label-input100">Attention *</span>
 
-                        <div class="contact100-form-range-value">
-                            <span id="value-lower">The status of the application will appear as soon as the doctor is selected</span>  <span id="value-upper"></span>
-                            <input type="text" name="from-value">
-                            <input type="text" name="to-value">
-                        </div>
+                    <div class="clearfix"></div>
+                    @*<div class="wrap-contact100-form-range">
+                            <span class="label-input100">Attention *</span>
 
-                        <div class="contact100-form-range-bar">
+                            <div class="contact100-form-range-value">
+                                <span id="value-lower">The status of the application will appear as soon as the doctor is selected</span>  <span id="value-upper"></span>
+                                <input type="text" name="from-value">
+                                <input type="text" name="to-value">
+                            </div>
 
-                        </div>
-                    </div>
+                            <div class="contact100-form-range-bar">
+
+                            </div>
+                        </div>*@
                 </div>
+
+
+                <div class="clearfix"></div>
+                <br>
 
                 <div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate="Please Type Your Message">
                     <span class="label-input100">Message</span>
-                    <textarea class="input100" name="message" placeholder="reason for your request..."></textarea>
+                    <textarea required class="input100" id="message" name="message" placeholder="reason for your request..."></textarea>
                 </div>
 
                 <div class="container-contact100-form-btn">
@@ -271,128 +278,147 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         <tr class="active">
                             <td class="track_dot">
                                 <span class="track_line"></span>
                             </td>
+                            @foreach (var item in exceptionList)
+                            {
 
-                        <tr>
-                            <td class="track_dot">
-                                <span class="track_line"></span>
-                            </td>
-                            <td>Skip Plan level</td>
-                            <td>DSE 310 Multimedia & Web Design</td>
-                            <td>not yet</td>
-                            <td><button type="button" class="btn btn-secondary">pending</button></td>
-                        </tr>
-                        <tr>
-                            <td class="track_dot">
-                                <span class="track_line"></span>
-                            </td>
-                            <td>Skip pre Request</td>
-                            <td>SE 421 Internet Application</td>
-                            <td>Denied for not taking a pre-requisite</td>
-                            <td><div class="btn btn-danger"> rejected</div>
+                            <tr>
+                                <td class="track_dot">
+                                    <span class="track_line"></span>
+                                </td>
+                                <td>@item.RequestName</td>
+                                <td>@item.CourseTitle</td>
+                                <td>not yet</td>
+                                <td><button type="button" class="btn btn-secondary">pending</button></td>
+                            </tr>
 
-                        </tr>
-                        <tr>
-                            <td class="track_dot">
-                                <span class="track_line"></span>
-                            </td>
-                            <td>Expand section</td>
-                            <td>
-                                SE 206 Introduction To Software Engineering
-                            </td>
-                            <td>accepted</td>
-                            <td><div class="btn btn-success"> accepted</div>
 
-                        </tr>
+                        }
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
-
         </div>
+
+
+
+        <!--===============================================================================================-->
+        <script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="~/vendor/animsition/js/animsition.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="~/vendor/bootstrap/js/popper.js"></script>
+        <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="~/vendor/select2/select2.min.js"></script>
+        <script>
+            $(".js-select2").each(function () {
+                $(this).select2({
+                    minimumResultsForSearch: 20,
+                    dropdownParent: $(this).next('.dropDownSelect2')
+                });
+
+
+                $(".js-select2").each(function () {
+                    $(this).on('select2:close', function (e) {
+                        if ($(this).val() == "Please chooses") {
+                            $('#divCourses').slideUp();
+                        }
+                        else {
+                            //$('.js-show-service').slideUp();
+                            $('#divCourses').slideDown();
+                        }
+                    });
+                });
+            })
+        </script>
+        <!--===============================================================================================-->
+        <script src="~/vendor/daterangepicker/moment.min.js"></script>
+        <script src="~/vendor/daterangepicker/daterangepicker.js"></script>
+        <!--===============================================================================================-->
+        <script src="~/vendor/countdowntime/countdowntime.js"></script>
+        <!--===============================================================================================-->
+        <script src="~/vendor/noui/nouislider.min.js"></script>
+        <script>
+            var filterBar = document.getElementById('filter-bar');
+
+            noUiSlider.create(filterBar, {
+                start: [1500, 3900],
+                connect: true,
+                range: {
+                    'min': 1500,
+                    'max': 7500
+                }
+            });
+
+            var skipValues = [
+                document.getElementById('value-lower'),
+                document.getElementById('value-upper')
+            ];
+
+            filterBar.noUiSlider.on('update', function (values, handle) {
+                skipValues[handle].innerHTML = Math.round(values[handle]);
+                $('.contact100-form-range-value input[name="from-value"]').val($('#value-lower').html());
+                $('.contact100-form-range-value input[name="to-value"]').val($('#value-upper').html());
+            });
+
+
+
+        </script>
+        <!--===============================================================================================-->
+        <script src="~/js/main.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-23581568-13');
+        </script>
+
+
     </div>
 
 
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
 
-    <!--===============================================================================================-->
-    <script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/vendor/animsition/js/animsition.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/vendor/bootstrap/js/popper.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/vendor/select2/select2.min.js"></script>
+
     <script>
-        $(".js-select2").each(function () {
-            $(this).select2({
-                minimumResultsForSearch: 20,
-                dropdownParent: $(this).next('.dropDownSelect2')
-            });
+        $('#frmException').submit(function (e) {
+            e.preventDefault();
 
+            var params = $('#frmException').serialize();
 
-            $(".js-select2").each(function () {
-                $(this).on('select2:close', function (e) {
-                    if ($(this).val() == "Please chooses") {
-                        $('.js-show-service').slideUp();
+            $.ajax({
+                url: '/home/saveExpections',
+                data: params,
+                type: 'POST',
+                async: false,
+                success: function (resp) {
+                    if (resp.status == 1) {
+                        alert('Your request has been submitted !');
+
+                        setTimeout(function () {
+                            window.location = location.href;
+                        }, 500);
+
+                    } else {
+                        alert(resp.msg);
                     }
-                    else {
-                        $('.js-show-service').slideUp();
-                        $('.js-show-service').slideDown();
-                    }
-                });
-            });
+                }
+            })
+
         })
-    </script>
-    <!--===============================================================================================-->
-    <script src="~/vendor/daterangepicker/moment.min.js"></script>
-    <script src="~/vendor/daterangepicker/daterangepicker.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/vendor/countdowntime/countdowntime.js"></script>
-    <!--===============================================================================================-->
-    <script src="~/vendor/noui/nouislider.min.js"></script>
-    <script>
-        var filterBar = document.getElementById('filter-bar');
 
-        noUiSlider.create(filterBar, {
-            start: [1500, 3900],
-            connect: true,
-            range: {
-                'min': 1500,
-                'max': 7500
-            }
-        });
-
-        var skipValues = [
-            document.getElementById('value-lower'),
-            document.getElementById('value-upper')
-        ];
-
-        filterBar.noUiSlider.on('update', function (values, handle) {
-            skipValues[handle].innerHTML = Math.round(values[handle]);
-            $('.contact100-form-range-value input[name="from-value"]').val($('#value-lower').html());
-            $('.contact100-form-range-value input[name="to-value"]').val($('#value-upper').html());
-        });
-    </script>
-    <!--===============================================================================================-->
-    <script src="~/js/main.js"></script>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-23581568-13');
-    </script>
-</div>
-
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+    </script>`

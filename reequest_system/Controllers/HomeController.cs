@@ -40,6 +40,10 @@ namespace reequest_system.Controllers
             expObject.collegeInfo = db.Collages.Where(c => c.ClgId == studentInfo.ClgId).SingleOrDefault();
             expObject.majoreInfo = db.CollageMajors.Where(c => c.MjrId == studentInfo.MjrId).SingleOrDefault();
             expObject.requestList = db.RequestLists.ToList();
+            expObject.courseList = db.Courses.ToList();
+            expObject.exceptionList = new ViewModels.vmExceptions().getList(db).Where(c=>c.Ssn==User.Identity.Name).ToList();
+
+
             return View(expObject);
         }
         [Authorize]
@@ -55,7 +59,7 @@ namespace reequest_system.Controllers
 
             return View(expObject);
         }
-        
+
         public IActionResult test()
         {
 
@@ -68,11 +72,37 @@ namespace reequest_system.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult saveExpections()
+        public IActionResult saveExpections(int requestId, string courseId, string message)
         {
+            int status = 0;
+            string msg = "";
+            string courseDept = courseId.Substring(0, courseId.IndexOf("-"));
+            int courseNo = Convert.ToInt32(courseId.Substring(courseId.IndexOf("-") + 1));
 
+            try
+            {
 
-            return Json(new { });
+                db.Exceptions.Add(new Models.Exception
+                {
+                    Ssn = User.Identity.Name,
+                    RequestId = requestId,
+                    CrsDpt = courseDept,
+                    CrsNum = courseNo,
+                    Message = message,
+                    SubmittedDate = DateTime.Now,
+                    Status = 1
+                });
+
+                status = db.SaveChanges();
+
+            }
+            catch 
+            {
+                status = 0;
+                msg = "Failed! Please try again..";
+            }
+
+            return Json(new { status, msg });
         }
     }
 }

@@ -10,16 +10,14 @@
         "projectUniqueName": "C:\\Program Files\\Git\\request_system\\reequest_system\\reequest_system.csproj",
         "projectName": "reequest_system",
         "projectPath": "C:\\Program Files\\Git\\request_system\\reequest_system\\reequest_system.csproj",
-        "packagesPath": "C:\\Users\\Atwa\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
         "outputPath": "C:\\Program Files\\Git\\request_system\\reequest_system\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Atwa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],

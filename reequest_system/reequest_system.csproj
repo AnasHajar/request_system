@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Home\login.cshtml" />
+    <None Include="Views\Auth\login.cshtml" />
     <None Include="Views\Home\stdn.cshtml" />
     <None Include="wwwroot\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />

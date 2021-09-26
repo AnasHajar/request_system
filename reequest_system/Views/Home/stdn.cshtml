@@ -3,6 +3,7 @@
     Student studInfo = Model.studentInfo;
     Collage collegeInfo = Model.collegeInfo;
     CollageMajor majoreInfo = Model.majoreInfo;
+    List<RequestList> requestList = Model.requestList;
 } 
 <title>Student @studInfo.StName</title>
 <style>
@@ -21,7 +22,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="~/images/student-graduation(1).jpg" alt="" />
+                    @*<img src="~/images/student-graduation(1).jpg" alt="" />*@
 
                 </div>
             </div>
@@ -172,7 +173,7 @@
                     <img src="~/images/signup-image.jpg" alt="sing up image">
                 </span>
 
-                <div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
+                @*<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
                     <span class="label-input100">FULL NAME *</span>
                     <input class="input100" type="text" name="name" placeholder="Enter Your Name">
                 </div>
@@ -185,17 +186,17 @@
                 <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Enter Your Email (e@a.x)">
                     <span class="label-input100">Email *</span>
                     <input class="input100" type="text" name="email" placeholder="Enter Your Student's email ">
-                </div>
+                </div>*@
 
                 <div class="wrap-input100 input100-select bg1">
                     <span class="label-input100">Type of Request *</span>
                     <div>
                         <select class="js-select2" name="service">
                             <option>Please chooses your Type of Request</option>
-                            <option>Skip pre Request</option>
-                            <option>Skip Plan Level</option>
-                            <option>Expand section Enrolment</option>
-                            <option>Exceed max Credit</option>
+                            @foreach (var item in requestList)
+                            {
+                                <option value="@item.RqstId">@item.RqstName</option>
+                            }                        
                         </select>
                         <div class="dropDownSelect2"></div>
                     </div>

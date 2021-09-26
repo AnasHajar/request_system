@@ -76,13 +76,14 @@
             $('#frmLogin').submit(function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: '/Home/verifiy',
+                    url: '/Auth/verifiy',
                     type: 'POST',
                     data: $('#frmLogin').serialize(),
                     success: function (resp) {
                         if (resp.status == true) {
                             alert('You have successfully signed in.');
-                            window.location = '/Home/Faculty';
+                            window.location = '/Home/' + (resp.role == 'student' ? 'stdn' : 'faculty');
+
                         } else {
                             alert('Please enter valid email and password.');
                         }

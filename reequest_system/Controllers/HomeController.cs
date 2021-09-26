@@ -30,58 +30,32 @@ namespace reequest_system.Controllers
         }
 
 
-
-        public IActionResult stdn(string id = "ssn1")
+        [Authorize]
+        public IActionResult stdn()
         {
-
+            string id = User.Identity.Name;
             dynamic expObject = new ExpandoObject();
             Student studentInfo = db.Students.Find(id);
             expObject.studentInfo = studentInfo;
             expObject.collegeInfo = db.Collages.Where(c => c.ClgId == studentInfo.ClgId).SingleOrDefault();
             expObject.majoreInfo = db.CollageMajors.Where(c => c.MjrId == studentInfo.MjrId).SingleOrDefault();
+            expObject.requestList = db.RequestLists.ToList();
+            return View(expObject);
+        }
+        [Authorize]
+        //Home/login
+        public IActionResult Faculty()
+        {
+            string id = User.Identity.Name;
+            dynamic expObject = new ExpandoObject();
+            Faculty facultyinfo = db.Faculties.Find(id);
+            expObject.facultyinfo = facultyinfo;
+            expObject.collegeInfo = db.Collages.Where(c => c.ClgId == facultyinfo.ClgId).SingleOrDefault();
+            expObject.majoreInfo = db.CollageMajors.Where(c => c.MjrId == facultyinfo.MjrId).SingleOrDefault();
 
             return View(expObject);
         }
-        //[Area("Home")] [Authorize]
-        public IActionResult Faculty()
-        {
-            return View();
-        }
-        public IActionResult login()
-        {
-
-            return View();
-        }
-        [HttpPost]
-        public IActionResult verifiy(string username, string psw)
-        {
-            // instead of useing something static we should use dynamic cheek
-            // if the user is on the db
-            //Student studentInfo = db.Students.Find(username);
-
-            bool status = false;
-            //studenInfo.id
-            if (username == "Admin" && psw == "123")
-            {
-                var userClaims = new List<Claim>()
-                {
-                    new Claim(ClaimTypes.Name,username)
-
-                };
-                var userIdentity = new ClaimsIdentity(userClaims, "User Identiy");
-                var userPrinciple = new ClaimsPrincipal(new[] { userIdentity });
-
-                HttpContext.SignInAsync(userPrinciple);
-                status = userPrinciple.Identity.IsAuthenticated;
-
-            }
-            return Json(new { status });
-        }
-        public IActionResult logout()
-        {
-            HttpContext.SignOutAsync();
-            return RedirectToAction("login");
-        }
+        
         public IActionResult test()
         {
 
@@ -92,6 +66,13 @@ namespace reequest_system.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult saveExpections()
+        {
+
+
+            return Json(new { });
         }
     }
 }

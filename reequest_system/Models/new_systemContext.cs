@@ -20,6 +20,7 @@ namespace reequest_system.Models
         public virtual DbSet<Collage> Collages { get; set; }
         public virtual DbSet<CollageMajor> CollageMajors { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Exception> Exceptions { get; set; }
         public virtual DbSet<Faculty> Faculties { get; set; }
         public virtual DbSet<RequestList> RequestLists { get; set; }
         public virtual DbSet<Student> Students { get; set; }
@@ -106,6 +107,52 @@ namespace reequest_system.Models
                     .HasForeignKey(d => d.MjrId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Mjr_FK_");
+            });
+
+            modelBuilder.Entity<Exception>(entity =>
+            {
+                entity.HasKey(e => e.RecId);
+
+                entity.ToTable("exceptions");
+
+                entity.Property(e => e.RecId).HasColumnName("recId");
+
+                entity.Property(e => e.CrsDpt)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .HasColumnName("crs_dpt");
+
+                entity.Property(e => e.CrsNum).HasColumnName("crs_num");
+
+                entity.Property(e => e.Justification)
+                    .HasMaxLength(200)
+                    .HasColumnName("justification");
+
+                entity.Property(e => e.JustifiedBy)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("justifiedBy");
+
+                entity.Property(e => e.JustifiedDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("justifiedDate");
+
+                entity.Property(e => e.Message)
+                    .HasMaxLength(200)
+                    .HasColumnName("message");
+
+                entity.Property(e => e.RequestId).HasColumnName("requestId");
+
+                entity.Property(e => e.Ssn)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .HasColumnName("ssn");
+
+                entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.Property(e => e.SubmittedDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("submitted_date");
             });
 
             modelBuilder.Entity<Faculty>(entity =>

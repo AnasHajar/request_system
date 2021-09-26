@@ -9,24 +9,24 @@
                 <li class="nav-item"><a class="nav-link" href="/Home/stdn">Student </a></li>
                 <li class="nav-item"><a class="nav-link" href="/Home/Faculty">Instroctor </a></li>
                 </ul>
-                <ul class="navbar-nav navbar-right ">
+            <ul class="navbar-nav navbar-right ">
 
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item"><a class="nav-link" href="/Auth/logout">Logout</a></li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item"><a class="nav-link" href="/Auth/logout">Logout</a></li>
+                    <li class="nav-item "><a class="nav-link" href="javascript:void(0)">Welcome @User.Identity.Name </a></li>
+                }
+                else
+                {
+                    <li class="nav-item"><a class="nav-link" href="/Auth/login">Login </a></li>
 
-                    }
-                    else
-                    {
-                        <li class="nav-item"><a class="nav-link" href="/Auth/login">Login </a></li>
+                }
 
-                    }
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item "><a class="nav-link" href="javascript:void(0)">Welcome @User.Identity.Name </a></li>
-                    }
-                </ul>
+                @*@if (User.Identity.IsAuthenticated)
+        {
+            <li class="nav-item "><a class="nav-link" href="javascript:void(0)">Welcome @User.Identity.Name </a></li>
+        }*@
+            </ul>
 
             
         </div> <!-- navbar-collapse.// -->

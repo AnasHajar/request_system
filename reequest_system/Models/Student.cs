@@ -14,6 +14,7 @@ namespace reequest_system.Models
         public string NationalityId { get; set; }
         public int ClgId { get; set; }
         public int MjrId { get; set; }
+        public string Email { get; set; }
 
         public virtual Collage Clg { get; set; }
         public virtual CollageMajor Mjr { get; set; }

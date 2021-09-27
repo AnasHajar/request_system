@@ -56,6 +56,8 @@ namespace reequest_system.Controllers
             expObject.facultyinfo = facultyinfo;
             expObject.collegeInfo = db.Collages.Where(c => c.ClgId == facultyinfo.ClgId).SingleOrDefault();
             expObject.majoreInfo = db.CollageMajors.Where(c => c.MjrId == facultyinfo.MjrId).SingleOrDefault();
+            expObject.courseList = db.Courses.ToList();
+            expObject.exceptionList = new ViewModels.vmExceptions().getList(db).Where(c => c.Ssn == User.Identity.Name).ToList();
 
             return View(expObject);
         }

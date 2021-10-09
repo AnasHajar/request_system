@@ -257,9 +257,10 @@ input.input100 {
 
 
 textarea.input100 {
-  min-height: 120px;
-  padding-top: 9px;
-  padding-bottom: 13px;
+	min-height: 120px;
+	padding-top: 9px;
+	padding-bottom: 13px;
+	padding: 10px 5px;
 }
 
 

@@ -1,14 +1,25 @@
 ﻿<nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">logo</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
+    
+        <a class="navbar-brand" icon href="~/images/logo.png">
+            <img src="/images/logo.png" style="height:40px" />
+        </a>
+        @*<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button>*@
         <div class="collapse navbar-collapse" id="main_nav">
             <ul class="navbar-nav navbar-left ">
+                @if (User.IsInRole("student"))
+                {
                 <li class="nav-item"><a class="nav-link" href="/Home/stdn">Student </a></li>
+                }
+
+                @if (User.IsInRole("faculty"))
+                {
                 <li class="nav-item"><a class="nav-link" href="/Home/Faculty">Instroctor </a></li>
-                </ul>
+
+                }
+            </ul>
             <ul class="navbar-nav navbar-right ">
 
                 @if (User.Identity.IsAuthenticated)
@@ -16,11 +27,7 @@
                     <li class="nav-item"><a class="nav-link" href="/Auth/logout">Logout</a></li>
                     <li class="nav-item "><a class="nav-link" href="javascript:void(0)">Welcome @User.Identity.Name </a></li>
                 }
-                else
-                {
-                    <li class="nav-item"><a class="nav-link" href="/Auth/login">Login </a></li>
-
-                }
+               
 
                 @*@if (User.Identity.IsAuthenticated)
         {

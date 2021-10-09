@@ -18,5 +18,10 @@ namespace reequest_system.Models
         public string Justification { get; set; }
         public string JustifiedBy { get; set; }
         public DateTime? JustifiedDate { get; set; }
+
+        public virtual Course Crs { get; set; }
+        public virtual Faculty JustifiedByNavigation { get; set; }
+        public virtual RequestList Request { get; set; }
+        public virtual Student SsnNavigation { get; set; }
     }
 }

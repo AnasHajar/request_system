@@ -33,7 +33,7 @@ namespace reequest_system
             {
                 config.Cookie.Name = "logincookie";
                 config.LoginPath = "/Auth/login";
-                config.AccessDeniedPath = "/Auth/login";
+                config.AccessDeniedPath = "/home/noaccess";
                 config.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                 config.SlidingExpiration = true;
 

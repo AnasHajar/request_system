@@ -7,6 +7,11 @@ namespace reequest_system.Models
 {
     public partial class Faculty
     {
+        public Faculty()
+        {
+            Exceptions = new HashSet<Exception>();
+        }
+
         public string FcyId { get; set; }
         public string FcyName { get; set; }
         public string FcyPsw { get; set; }
@@ -17,5 +22,6 @@ namespace reequest_system.Models
 
         public virtual Collage Clg { get; set; }
         public virtual CollageMajor Mjr { get; set; }
+        public virtual ICollection<Exception> Exceptions { get; set; }
     }
 }

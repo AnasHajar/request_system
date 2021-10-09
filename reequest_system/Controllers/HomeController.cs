@@ -30,7 +30,7 @@ namespace reequest_system.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles = "student")]
         public IActionResult stdn()
         {
             string id = User.Identity.Name;
@@ -40,23 +40,33 @@ namespace reequest_system.Controllers
             expObject.collegeInfo = db.Collages.Where(c => c.ClgId == studentInfo.ClgId).SingleOrDefault();
             expObject.majoreInfo = db.CollageMajors.Where(c => c.MjrId == studentInfo.MjrId).SingleOrDefault();
             expObject.requestList = db.RequestLists.ToList();
-            return View(expObject);
-        }
-        [Authorize]
-        //Home/login
-        public IActionResult Faculty()
-        {
-            string id = User.Identity.Name;
-            dynamic expObject = new ExpandoObject();
-            Faculty facultyinfo = db.Faculties.Find(id);
-            expObject.facultyinfo = facultyinfo;
-            expObject.collegeInfo = db.Collages.Where(c => c.ClgId == facultyinfo.ClgId).SingleOrDefault();
-            expObject.majoreInfo = db.CollageMajors.Where(c => c.MjrId == facultyinfo.MjrId).SingleOrDefault();
+            expObject.courseList = db.Courses.ToList();
+            expObject.exceptionList = new ViewModels.vmExceptions().getList(db).Where(c=>c.Ssn==User.Identity.Name).ToList();
+
 
             return View(expObject);
         }
         
-        public IActionResult test()
+        [Authorize(Roles = "faculty")]
+        //Home/login
+        public IActionResult Faculty()
+        {
+            string id = User.Identity.Name;
+
+            dynamic expObject = new ExpandoObject();
+            Faculty facultyinfo = db.Faculties.Find(id);
+            
+            
+            expObject.facultyinfo = facultyinfo;
+            expObject.collegeInfo = db.Collages.Where(c => c.ClgId == facultyinfo.ClgId).SingleOrDefault();
+            expObject.majoreInfo = db.CollageMajors.Where(c => c.MjrId == facultyinfo.MjrId).SingleOrDefault();
+            expObject.courseList = db.Courses.ToList();
+            //expObject.exceptionList = new ViewModels.vmExceptions().getList(db).ToList();
+            expObject.exceptionList = db.Exceptions.Where(c=>c.SsnNavigation.MjrId==facultyinfo.MjrId).ToList();
+            return View(expObject);
+        }
+
+        public IActionResult noaccess()
         {
 
             return View();
@@ -68,11 +78,66 @@ namespace reequest_system.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult saveExpections()
+        public IActionResult saveExpections(int requestId, string courseId, string message)
         {
+            int status = 0;
+            string msg = "";
+            string courseDept = courseId.Substring(0, courseId.IndexOf("-"));
+            int courseNo = Convert.ToInt32(courseId.Substring(courseId.IndexOf("-") + 1));
+
+            try
+            {
+
+                db.Exceptions.Add(new Models.Exception
+                {
+                    Ssn = User.Identity.Name,
+                    RequestId = requestId,
+                    CrsDpt = courseDept,
+                    CrsNum = courseNo,
+                    Message = message,
+                    SubmittedDate = DateTime.Now,
+                    Status = 1
+                });
+
+                status = db.SaveChanges();
+
+            }
+            catch 
+            {
+                status = 0;
+                msg = "Failed! Please try again..";
+            }
+
+            return Json(new { status, msg });
+        }
 
 
-            return Json(new { });
+
+        public IActionResult submitAction(int recid, int statusId, string message)
+        {
+            int status = 0;
+            string msg = "";
+            
+            try
+            {
+                var exceptionDetail = db.Exceptions.Where(c => c.RecId == recid).SingleOrDefault();
+
+                if (exceptionDetail != null)
+                {
+                    exceptionDetail.Status = statusId;
+                    exceptionDetail.Message = message;
+                }
+
+                status = db.SaveChanges();
+
+            }
+            catch
+            {
+                status = 0;
+                msg = "Failed! Please try again..";
+            }
+
+            return Json(new { status, msg });
         }
     }
 }

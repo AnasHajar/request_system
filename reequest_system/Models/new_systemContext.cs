@@ -23,6 +23,7 @@ namespace reequest_system.Models
         public virtual DbSet<Exception> Exceptions { get; set; }
         public virtual DbSet<Faculty> Faculties { get; set; }
         public virtual DbSet<RequestList> RequestLists { get; set; }
+        public virtual DbSet<Status> Statuses { get; set; }
         public virtual DbSet<Student> Students { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,7 +31,7 @@ namespace reequest_system.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.;Database=new_system;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.;Database=new_system;Trusted_Connection=True;MultipleActiveResultSets=true");
             }
         }
 
@@ -129,8 +130,7 @@ namespace reequest_system.Models
                     .HasColumnName("justification");
 
                 entity.Property(e => e.JustifiedBy)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
+                    .HasMaxLength(10)
                     .HasColumnName("justifiedBy");
 
                 entity.Property(e => e.JustifiedDate)
@@ -153,6 +153,28 @@ namespace reequest_system.Models
                 entity.Property(e => e.SubmittedDate)
                     .HasColumnType("datetime")
                     .HasColumnName("submitted_date");
+
+                entity.HasOne(d => d.JustifiedByNavigation)
+                    .WithMany(p => p.Exceptions)
+                    .HasForeignKey(d => d.JustifiedBy)
+                    .HasConstraintName("FK_exceptions_Faculty");
+
+                entity.HasOne(d => d.Request)
+                    .WithMany(p => p.Exceptions)
+                    .HasForeignKey(d => d.RequestId)
+                    .HasConstraintName("FK_exceptions_Request_List");
+
+                entity.HasOne(d => d.SsnNavigation)
+                    .WithMany(p => p.Exceptions)
+                    .HasForeignKey(d => d.Ssn)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_exceptions_Student");
+
+                entity.HasOne(d => d.Crs)
+                    .WithMany(p => p.Exceptions)
+                    .HasForeignKey(d => new { d.CrsDpt, d.CrsNum })
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_exceptions_Course");
             });
 
             modelBuilder.Entity<Faculty>(entity =>
@@ -163,7 +185,7 @@ namespace reequest_system.Models
                 entity.ToTable("Faculty");
 
                 entity.Property(e => e.FcyId)
-                    .HasMaxLength(5)
+                    .HasMaxLength(10)
                     .HasColumnName("fcy_id");
 
                 entity.Property(e => e.ClgId).HasColumnName("clg_id");
@@ -213,6 +235,19 @@ namespace reequest_system.Models
                     .HasColumnName("rqst_name");
             });
 
+            modelBuilder.Entity<Status>(entity =>
+            {
+                entity.ToTable("Status");
+
+                entity.Property(e => e.StatusId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("status_id");
+
+                entity.Property(e => e.StatusName)
+                    .HasMaxLength(50)
+                    .HasColumnName("status_name");
+            });
+
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.HasKey(e => e.Ssn)
@@ -229,6 +264,8 @@ namespace reequest_system.Models
                 entity.Property(e => e.Dob)
                     .HasColumnType("datetime")
                     .HasColumnName("dob");
+
+                entity.Property(e => e.Email).HasMaxLength(50);
 
                 entity.Property(e => e.MjrId).HasColumnName("mjr_id");
 

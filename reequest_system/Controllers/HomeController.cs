@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using reequest_system.Models;
 
@@ -41,7 +42,13 @@ namespace reequest_system.Controllers
             expObject.majoreInfo = db.CollageMajors.Where(c => c.MjrId == studentInfo.MjrId).SingleOrDefault();
             expObject.requestList = db.RequestLists.ToList();
             expObject.courseList = db.Courses.ToList();
-            expObject.exceptionList = new ViewModels.vmExceptions().getList(db).Where(c=>c.Ssn==User.Identity.Name).ToList();
+            //expObject.exceptionList = new ViewModels.vmExceptions().getList(db).Where(c => c.Ssn == User.Identity.Name).ToList();
+            expObject.exceptionList = db.Exceptions.Where(c => c.Ssn == User.Identity.Name)
+                                        .Include(b => b.StatusNavigation)
+                                        .Include(b => b.SsnNavigation)
+                                        .Include(b => b.Crs)
+                                        .Include(b => b.Request)
+                                        .OrderBy(c => c.RequestId);
 
 
             return View(expObject);
@@ -62,7 +69,12 @@ namespace reequest_system.Controllers
             expObject.majoreInfo = db.CollageMajors.Where(c => c.MjrId == facultyinfo.MjrId).SingleOrDefault();
             expObject.courseList = db.Courses.ToList();
             //expObject.exceptionList = new ViewModels.vmExceptions().getList(db).ToList();
-            expObject.exceptionList = db.Exceptions.Where(c=>c.SsnNavigation.MjrId==facultyinfo.MjrId).ToList();
+            //expObject.exceptionList = db.Exceptions.Where(c=>c.SsnNavigation.MjrId==facultyinfo.MjrId).ToList();
+            expObject.exceptionList = db.Exceptions.Where(c => c.SsnNavigation.MjrId == facultyinfo.MjrId)
+                                        .Include(b => b.StatusNavigation)
+                                        .Include(b => b.SsnNavigation)
+                                        .OrderBy(c=>c.RequestId);
+
             return View(expObject);
         }
 
@@ -125,7 +137,9 @@ namespace reequest_system.Controllers
                 if (exceptionDetail != null)
                 {
                     exceptionDetail.Status = statusId;
-                    exceptionDetail.Message = message;
+                    exceptionDetail.Justification = message;
+                    exceptionDetail.JustifiedBy = User.Identity.Name;
+                    exceptionDetail.JustifiedDate = System.DateTime.Now;
                 }
 
                 status = db.SaveChanges();

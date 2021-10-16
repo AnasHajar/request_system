@@ -5,13 +5,13 @@
     Collage collegeInfo = Model.collegeInfo;
     CollageMajor majoreInfo = Model.majoreInfo;
 
-    List<reequest_system.Models.Exception> exceptionList = Model.exceptionList;
+    var exceptionList = Model.exceptionList;
 
 }
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Faculty @facultyinfo.FcyName</title>
+<title>Faculty</title>
 
 <style>
     img {
@@ -88,7 +88,10 @@
                                     @foreach (var item in exceptionList)
                                     {
                                         <tr>
-                                            <td data-search="Anas Hajar">@item.Status</td>
+                                            <td data-search="Anas Hajar">
+                                                @(item.SsnNavigation != null? item.SsnNavigation.StName : "")
+
+                                            </td>
                                             <td>@item.Crs.CrsTitle</td>
                                             <td>@(item.Request!=null ? item.Request.RqstName:"") </td>
                                             <td>@item.Justification</td>
@@ -96,7 +99,20 @@
                                             <td data-order="320800">@(Convert.ToDateTime(item.SubmittedDate).ToString("dd-MMM-yyyy hh:tt"))</td>
                                             <td data-order="320800">@item.JustifiedBy</td>
                                             <td>
-                                                <button type="button" class="btn btn-block btn-sm btn-primary" onclick="openActionModal()">Submit Action</button>
+                                                @if (item.Status == 1)
+                                                {
+                                                <button type="button" class="btn btn-block btn-sm btn-primary" onclick="openActionModal('@item.RecId')">
+                                                    @(item.StatusNavigation!=null? item.StatusNavigation.StatusName:"")
+
+                                                </button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="button" class="btn btn-block btn-sm @(item.Status==2?"btn-success":"btn-danger") disabled" disabled >
+                                                @(item.StatusNavigation!=null? item.StatusNavigation.StatusName:"")
+                                                    </button>
+                                                }
+
                                                 @*<div class="btn btn-danger">Reject</div> <div class="btn btn-success"> Accept</div>*@
                                             </td>
                                         </tr>
@@ -124,6 +140,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <input type="hidden" name="recid" id="recid" />
                     <div>
                         <textarea class="form-control" rows="4" id="message" name="message" placeholder="Write your comments here ...."></textarea>
                     </div>
@@ -139,17 +156,45 @@
 
 <script>
     $(document).ready(function () {
-        $('#example').DataTable();
+        $('#example').DataTable({
+            "order": [[6, "asc"]]
+        });
     });
 
-    function openActionModal() {
+    function openActionModal(recId) {
+        $('#recid').val(recId);
         $('#actionModal').modal('show');
     }
 
     function submitAction(statusId) {
-        alert(statusId);
-        alert('Your action has been submitted !');
-        $('#actionModal').modal('hide');
+
+        var params = {
+            recid:$('#recid').val(),
+            statusId: statusId,
+            message:$('#message').val()
+        };
+
+        $.ajax({
+            url: '/home/submitAction',
+            data: params,
+            type: 'POST',
+            async: false,
+            success: function (resp) {
+                if (resp.status == 1) {
+                    alert('Your action has been submitted !');
+                    $('#actionModal').modal('hide');
+
+                    setTimeout(function () {
+                        window.location = location.href;
+                    }, 500);
+
+                } else {
+                    alert(resp.msg);
+                }
+            }
+        })
+
+
 
 
     }

@@ -7,7 +7,7 @@
     List<RequestList> requestList = Model.requestList;
     List<Course> courseList = Model.courseList;
 
-    List<vmExceptions> exceptionList = Model.exceptionList;
+    var exceptionList = Model.exceptionList;
 
 }
 <title>Student @studInfo.StName</title>
@@ -289,15 +289,19 @@
                             @foreach (var item in exceptionList)
                             {
 
-                            <tr>
-                                <td class="track_dot">
-                                    <span class="track_line"></span>
-                                </td>
-                                <td>@item.RequestName</td>
-                                <td>@item.CourseTitle</td>
-                                <td>not yet</td>
-                                <td><button type="button" class="btn btn-secondary">pending</button></td>
-                            </tr>
+                        <tr>
+                            <td class="track_dot">
+                                <span class="track_line"></span>
+                            </td>
+                            <td>@item.Request.RqstName</td>
+                            <td>@item.Crs.CrsTitle</td>
+                            <td>@item.Justification</td>
+                            <td><button type="button" class="btn btn-block btn-sm @(item.Status==2?"btn-success":"btn-danger") disabled" disabled>
+    @(item.StatusNavigation!=null? item.StatusNavigation.StatusName:"")
+</button>
+
+                            </td>
+                        </tr>
 
 
                         }

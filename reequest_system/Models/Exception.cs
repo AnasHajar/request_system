@@ -23,5 +23,6 @@ namespace reequest_system.Models
         public virtual Faculty JustifiedByNavigation { get; set; }
         public virtual RequestList Request { get; set; }
         public virtual Student SsnNavigation { get; set; }
+        public virtual Status StatusNavigation { get; set; }
     }
 }

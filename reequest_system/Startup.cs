@@ -44,8 +44,9 @@ namespace reequest_system
 
 
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+            services.AddDbContext<ApplicationDbContext>(options =>options
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
             // Add framework services.

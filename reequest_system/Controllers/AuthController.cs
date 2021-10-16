@@ -33,8 +33,8 @@ namespace reequest_system.Controllers
             bool status = false;
             //studenInfo.id
             var stdInfo = db.Students.Where(c => c.Ssn == username && c.StPsw == psw).SingleOrDefault();
-            var facultyInfo = new Faculty();
-            if (stdInfo == null)
+            var facultyInfo=new Faculty();
+            if (stdInfo==null)
             {
                 facultyInfo = db.Faculties.Where(c => c.FcyId == username && c.FcyPsw == psw).SingleOrDefault();
 
@@ -42,12 +42,11 @@ namespace reequest_system.Controllers
 
             var roleName = (stdInfo != null ? "student" : "faculty");
 
-            if (stdInfo != null || facultyInfo != null)
+            if (stdInfo!=null || facultyInfo != null )
             {
                 var userClaims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.Name,username),
-                    // roleName here if the user either student or faculty 
                     new Claim(ClaimTypes.Role,roleName)
 
                 };
@@ -58,8 +57,8 @@ namespace reequest_system.Controllers
                 status = userPrinciple.Identity.IsAuthenticated;
 
             }
-
-            return Json(new { status, role = roleName });
+            
+            return Json(new { status, role=roleName });
         }
         public IActionResult logout()
         {

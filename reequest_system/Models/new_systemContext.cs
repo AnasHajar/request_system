@@ -170,6 +170,11 @@ namespace reequest_system.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_exceptions_Student");
 
+                entity.HasOne(d => d.StatusNavigation)
+                    .WithMany(p => p.Exceptions)
+                    .HasForeignKey(d => d.Status)
+                    .HasConstraintName("FK_exceptions_Status");
+
                 entity.HasOne(d => d.Crs)
                     .WithMany(p => p.Exceptions)
                     .HasForeignKey(d => new { d.CrsDpt, d.CrsNum })

@@ -81,7 +81,7 @@
                     data: $('#frmLogin').serialize(),
                     success: function (resp) {
                         if (resp.status == true) {
-                            alert('You have successfully signed in.');
+                            //alert('You have successfully signed in.');
                             window.location = '/Home/' + (resp.role == 'student' ? 'stdn' : 'faculty');
 
                         } else {

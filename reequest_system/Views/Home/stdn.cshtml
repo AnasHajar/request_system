@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img  src="~/images/avatar-homme-final.jpg" />
+                    <img src="~/images/avatar-homme-final.jpg" />
                 </div>
             </div>
             <div class="col-md-6">
@@ -177,19 +177,19 @@
                 </span>
 
                 @*<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
-            <span class="label-input100">FULL NAME *</span>
-            <input class="input100" type="text" name="name" placeholder="Enter Your Name">
-        </div>
+                        <span class="label-input100">FULL NAME *</span>
+                        <input class="input100" type="text" name="name" placeholder="Enter Your Name">
+                    </div>
 
-        <div class="wrap-input100 bg1 rs1-wrap-input100">
-            <span class="label-input100">SSN ID</span>
-            <input class="input100" type="text" name="ID" placeholder="Enter SSN ID">
-        </div>
+                    <div class="wrap-input100 bg1 rs1-wrap-input100">
+                        <span class="label-input100">SSN ID</span>
+                        <input class="input100" type="text" name="ID" placeholder="Enter SSN ID">
+                    </div>
 
-        <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Enter Your Email (e@a.x)">
-            <span class="label-input100">Email *</span>
-            <input class="input100" type="text" name="email" placeholder="Enter Your Student's email ">
-        </div>*@
+                    <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Enter Your Email (e@a.x)">
+                        <span class="label-input100">Email *</span>
+                        <input class="input100" type="text" name="email" placeholder="Enter Your Student's email ">
+                    </div>*@
 
                 <div class="wrap-input100 input100-select bg1 pb-3">
                     <div class="label-input100 mb-2 ">Type of Request *</div>
@@ -207,69 +207,69 @@
 
                 <div class="clearfix"></div>
 
-            
-
-                        <div class="wrap-input100 input100-select bg1 dis-none" id="divCourses">
-                            <div class="label-input100 mb-2 ">Choose the available courses</div>
-
-                            <div>
-
-                                <select name="courseId" id="courseId" required class="form-control">
-                                    <option>Please chooses your desired course</option>
-                                    @*loop throu the courselist *@
-                                    @foreach (var item in courseList)
-                                    {
-                                        <option value="@(string.Concat(item.CrsDpt,"-",item.CrsNum))">@item.CrsTitle</option>
-                                    }
-                                </select>
 
 
-                                @*<div class="contact100-form-radio m-t-15">
-                            <input class="input-radio100" id="radio1" type="radio" name="type-product" value="course" checked="checked">
-                            <label class="label-radio100" for="radio1">
-                                @item.CrsTitle
-                            </label>
-                        </div>*@
+                <div class="wrap-input100 input100-select bg1 dis-none" id="divCourses">
+                    <div class="label-input100 mb-2 ">Choose the available courses</div>
+
+                    <div>
+
+                        <select name="courseId" id="courseId" required class="form-control">
+                            <option>Please chooses your desired course</option>
+                            @*loop throu the courselist *@
+                            @foreach (var item in courseList)
+                            {
+                                <option value="@(string.Concat(item.CrsDpt,"-",item.CrsNum))">@item.CrsTitle</option>
+                            }
+                        </select>
+
+
+                        @*<div class="contact100-form-radio m-t-15">
+                                <input class="input-radio100" id="radio1" type="radio" name="type-product" value="course" checked="checked">
+                                <label class="label-radio100" for="radio1">
+                                    @item.CrsTitle
+                                </label>
+                            </div>*@
+                    </div>
+
+
+                    <div class="clearfix"></div>
+                    @*<div class="wrap-contact100-form-range">
+                            <span class="label-input100">Attention *</span>
+
+                            <div class="contact100-form-range-value">
+                                <span id="value-lower">The status of the application will appear as soon as the doctor is selected</span>  <span id="value-upper"></span>
+                                <input type="text" name="from-value">
+                                <input type="text" name="to-value">
                             </div>
 
+                            <div class="contact100-form-range-bar">
 
-                            <div class="clearfix"></div>
-                            @*<div class="wrap-contact100-form-range">
-                        <span class="label-input100">Attention *</span>
-
-                        <div class="contact100-form-range-value">
-                            <span id="value-lower">The status of the application will appear as soon as the doctor is selected</span>  <span id="value-upper"></span>
-                            <input type="text" name="from-value">
-                            <input type="text" name="to-value">
-                        </div>
-
-                        <div class="contact100-form-range-bar">
-
-                        </div>
-                    </div>*@
-                        </div>
+                            </div>
+                        </div>*@
+                </div>
 
 
-                        <div class="clearfix"></div>
-                        <br>
+                <div class="clearfix"></div>
+                <br>
 
-                        <div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate="Please Type Your Message">
-                            <span class="label-input100">Message</span>
-                            <textarea required class="input100" id="message" name="message" placeholder="reason for your request..."></textarea>
-                        </div>
+                <div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate="Please Type Your Message">
+                    <span class="label-input100">Message</span>
+                    <textarea required class="input100" id="message" name="message" placeholder="reason for your request..."></textarea>
+                </div>
 
-                        <div class="container-contact100-form-btn">
-                            <button class="contact100-form-btn">
-                                <span>
-                                    SEND
-                                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                                </span>
-                            </button>
-                        </div>
+                <div class="container-contact100-form-btn">
+                    <button class="contact100-form-btn">
+                        <span>
+                            SEND
+                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
             </form>
             <div class="p-4">
                 <h3>Request Status</h3>
-                <table class="table table-bordered track_tbl">
+                <table id="example" class="table table-bordered track_tbl">
                     <thead>
                         <tr>
                             <th></th>
@@ -289,19 +289,20 @@
                             @foreach (var item in exceptionList)
                             {
 
-                        <tr>
-                            <td class="track_dot">
-                                <span class="track_line"></span>
-                            </td>
-                            <td>@item.Request.RqstName</td>
-                            <td>@item.Crs.CrsTitle</td>
-                            <td>@item.Justification</td>
-                            <td><button type="button" class="btn btn-block btn-sm @(item.Status==2?"btn-success":"btn-danger") disabled" disabled>
-    @(item.StatusNavigation!=null? item.StatusNavigation.StatusName:"")
-</button>
+                            <tr>
+                                <td class="track_dot">
+                                    <span class="track_line"></span>
+                                </td>
+                                <td>@item.Request.RqstName</td>
+                                <td>@item.Crs.CrsTitle</td>
+                                <td>@item.Justification</td>
+                                <td>
+                                    <button type="button" class="btn btn-block btn-sm @(item.Status==2?"btn-success":(item.Status==3?"btn-danger":"btn-primary")) disabled" disabled>
+                                        @(item.StatusNavigation!=null? item.StatusNavigation.StatusName:"")
+                                    </button>
 
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
 
 
                         }
@@ -324,7 +325,15 @@
         <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
         <!--===============================================================================================-->
         <script src="~/vendor/select2/select2.min.js"></script>
+
         <script>
+
+            $(document).ready(function () {
+                $('#example').DataTable({
+                    "order": [[4, "asc"]]
+                });
+            });
+
 
 
             $('#requestId').change(function () {
@@ -426,7 +435,7 @@
                 async: false,
                 success: function (resp) {
                     if (resp.status == 1) {
-                        alert('Your request has been submitted !');
+                        //alert('Your request has been submitted !');
 
                         setTimeout(function () {
                             window.location = location.href;

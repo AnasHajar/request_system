@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Faculty</title>
+<title>Faculty @facultyinfo.FcyName</title>
 
 <style>
     img {
@@ -33,34 +33,35 @@
                             @* img edit  *@
                             <div class="m-b-25"> <img src="https://www.ubt.edu.sa/assets/clg/img/dean1.png" class="img-radius" alt="User-Profile-Image" width="100" height="100 "> </div>
                             <h6 class="f-w-600">@facultyinfo.FcyName</h6>
-                            <p style="color:white">Web Designer</p>
+                            <p style="color:white">Instroctor</p>
                             @*<i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>*@
                         </div>
                     </div>
                     <div class="col-sm-8">
                         <div class="card-block">
-                            <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                            <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Department</h6>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <p class="m-b-10 f-w-600">Date of birth</p>
-                                    <h6 class="text-muted f-w-400">@facultyinfo.Dob</h6>
+                                    <p class="m-b-10 f-w-600">Collage</p>
+                                    <h6 class="text-muted f-w-400">@collegeInfo.ClgName</h6>
                                 </div>
+                                <div class="col-sm-6">
+                                    <p class="m-b-10 f-w-600"> Major </p>
+                                    <h6 class="text-muted f-w-400">@majoreInfo.MjrName</h6>
+                                </div>
+                            </div>
+                            <h6  style="margin-top:10px" class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                            <div class="row">
                                 <div class="col-sm-6">
                                     <p class="m-b-10 f-w-600">Nationality</p>
                                     <h6 class="text-muted f-w-400">@facultyinfo.NationalityId</h6>
                                 </div>
-                            </div>
-                            <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Projects</h6>
-                            <div class="row">
                                 <div class="col-sm-6">
-                                    <p class="m-b-10 f-w-600">collage</p>
-                                    <h6 class="text-muted f-w-400">@collegeInfo.ClgName</h6>
-                                </div>
-                                <div class="col-sm-6">
-                                    <p class="m-b-10 f-w-600"> major </p>
-                                    <h6 class="text-muted f-w-400">@majoreInfo.MjrName</h6>
+                                    <p class="m-b-10 f-w-600">Phone</p>
+                                    <h6 class="text-muted f-w-400">@facultyinfo.Phone</h6>
                                 </div>
                             </div>
+
                             <!-- END MENU -->
 
                         </div>
@@ -93,11 +94,15 @@
 
                                             </td>
                                             <td>@item.Crs.CrsTitle</td>
-                                            <td>@(item.Request!=null ? item.Request.RqstName:"") </td>
+                                            <td>
+                                            @(item.Request != null ? item.Request.RqstName : "")</td>
                                             <td>@item.Justification</td>
 
                                             <td data-order="320800">@(Convert.ToDateTime(item.SubmittedDate).ToString("dd-MMM-yyyy hh:tt"))</td>
-                                            <td data-order="320800">@item.JustifiedBy</td>
+                                            <td data-order="320800">
+                                                
+                                                @item.Message
+                                            </td>
                                             <td>
                                                 @if (item.Status == 1)
                                                 {
@@ -181,7 +186,7 @@
             async: false,
             success: function (resp) {
                 if (resp.status == 1) {
-                    alert('Your action has been submitted !');
+                    //alert('Your action has been submitted !');
                     $('#actionModal').modal('hide');
 
                     setTimeout(function () {

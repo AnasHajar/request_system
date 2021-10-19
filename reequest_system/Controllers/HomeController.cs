@@ -48,7 +48,7 @@ namespace reequest_system.Controllers
                                         .Include(b => b.SsnNavigation)
                                         .Include(b => b.Crs)
                                         .Include(b => b.Request)
-                                        .OrderBy(c => c.RequestId);
+                                        .OrderByDescending(c => c.RequestId);
 
 
             return View(expObject);
@@ -70,10 +70,13 @@ namespace reequest_system.Controllers
             expObject.courseList = db.Courses.ToList();
             //expObject.exceptionList = new ViewModels.vmExceptions().getList(db).ToList();
             //expObject.exceptionList = db.Exceptions.Where(c=>c.SsnNavigation.MjrId==facultyinfo.MjrId).ToList();
-            expObject.exceptionList = db.Exceptions.Where(c => c.SsnNavigation.MjrId == facultyinfo.MjrId)
+            expObject.exceptionList = db.Exceptions
+                                    .Where(c => c.SsnNavigation.MjrId == facultyinfo.MjrId)
                                         .Include(b => b.StatusNavigation)
                                         .Include(b => b.SsnNavigation)
-                                        .OrderBy(c=>c.RequestId);
+                                        .Include(b => b.JustifiedByNavigation)
+                                        .Include(b => b.Request)
+                                        .OrderByDescending(c=>c.RequestId);
 
             return View(expObject);
         }

@@ -213,6 +213,10 @@ namespace reequest_system.Models
                     .HasMaxLength(5)
                     .HasColumnName("Nationality_id");
 
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(200)
+                    .HasColumnName("phone");
+
                 entity.HasOne(d => d.Clg)
                     .WithMany(p => p.Faculties)
                     .HasForeignKey(d => d.ClgId)
